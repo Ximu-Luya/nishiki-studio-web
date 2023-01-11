@@ -1,10 +1,10 @@
 let express = require('express')
 let router = express.Router()
-let moment = require('moment')
+let dayjs = require('dayjs')
 
 // 图片上传
-let upload = require('../untils/upload')
-router.use('/', upload)
+// let upload = require('../untils/upload')
+// router.use('/', upload)
 
 // 引入请求body解析中间件
 let bodyParser = require('body-parser')
@@ -46,7 +46,7 @@ router.get('/', function (req, res) {
 router.post('/', jsonParser, (req, res) => {
   const { title, tag_list, section, content } = req.body
   const { _uid: author } = req['user']
-  const datetime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
+  const datetime = dayjs().format('YYYY-MM-DD HH:mm:ss')
   const newblogItem = [title, tag_list, section, author, content, datetime, datetime]
 
   // 检查是否为贡献者用户
@@ -64,7 +64,7 @@ router.put('/', jsonParser, (req, res) => {
   const id = req.query.id
   const currentUID = req['user']._uid
   const { title, tag_list, section, content, author_id } = req.body
-  const datetime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
+  const datetime = dayjs().format('YYYY-MM-DD HH:mm:ss')
   const blogItem = [title, tag_list, section, content, datetime, id]
 
   // 检查是否为贡献者用户

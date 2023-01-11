@@ -1,8 +1,8 @@
 let express = require('express')
 let router = express.Router()
 let blog = require('./router/blog')
-let user = require('./router/user')
-let achievement = require('./router/achievement')
+// let user = require('./router/user')
+// let achievement = require('./router/achievement')
 
 router.use('/blog', blog)
 // router.use('/user', user)
