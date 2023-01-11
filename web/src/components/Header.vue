@@ -21,7 +21,7 @@ onMounted(() => {
   window.addEventListener('scroll', () => {
     const scrollTop = window.pageYOffset
     console.log(scrollTop);
-    if(scrollTop > 50) showFixedHeader.value = true
+    if(scrollTop > 80) showFixedHeader.value = true
     else showFixedHeader.value = false
   })
 })
