@@ -22,7 +22,7 @@ router.get('/blog*', function (req, res) {
       return res.json({
         code: 0,
         data: fs.readFileSync(systemPath, 'utf8'),
-        message: '文章查询成功'
+        message: '找到文章了喵~'
       })
     } 
     // 路径为目录则读取目录，且返回目录树
@@ -30,7 +30,7 @@ router.get('/blog*', function (req, res) {
       fs.readdir(systemPath, (err, files) => {
         if (err) {
           console.log('└ 目录读取失败')
-          return res.json({ code: 99, message: '目录树获取失败' })
+          return res.json({ code: 99, message: '目录树读取失败喵QAQ' })
         }
 
         // 读取目录树
@@ -64,17 +64,17 @@ router.get('/blog*', function (req, res) {
         return res.json({
           code: 0,
           data: blogTreeData,
-          message: '文章目录树获取成功'
+          message: '找到了目录喵~'
         })
       })
     }
   } catch (err) {
     if(err.errno === -2) {
       console.log('└ 路径查找文件失败')
-      return res.json({ code: 99, message: '找不到该文章' })
+      return res.json({ code: 99, message: '路径好像有误喵QAQ' })
     } else{
       console.log('└ 其他位未知错误')
-      return res.json({ code: 99, message: '其他未知错误' })
+      return res.json({ code: 99, message: '遇到不知道的错误了喵╥﹏╥...' })
     }
   }
 })
