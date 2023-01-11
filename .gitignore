@@ -18,7 +18,7 @@ web/cypress/videos/
 web/cypress/screenshots/
 
 # Editor directories and files
-.vscode/*
+.vscode
 !.vscode/extensions.json
 .idea
 *.suo
@@ -27,4 +27,8 @@ web/cypress/screenshots/
 *.sln
 *.sw?
 
+# 自定义
 custom.config.yml
+blogs
+!blogs/JavaScript
+!blogs/Vue
