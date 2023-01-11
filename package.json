@@ -1,0 +1,20 @@
+{
+  "name": "nishiki-studio-web",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite --config ./build/vite.config.js",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "element-plus": "^2.2.28",
+    "vue": "^3.2.45",
+    "vue-router": "^4.1.6"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.0.0",
+    "sass": "^1.57.1",
+    "vite": "^4.0.0"
+  }
+}
