@@ -11,43 +11,10 @@ app.all(/\/api.*/, function (req, res, next) {
   next()
 })
 
-// 引入JWT解析中间件
-import { expressjwt } from 'express-jwt'
-import { signkey } from './untils/token_vertify.js'
-
-// 验证token是否过期并规定哪些路由不用验证
-// express-jwt API教程：https://github.com/auth0/express-jwt
-app.use(
-  expressjwt({
-    secret: signkey,
-    algorithms: ['HS256']
-  }).unless({
-    path: [
-      { url: /\/.*/, methods: ['GET'] },
-      '/api/user/login',
-      // {url: /\/api.*/, methods: ['POST', 'PUT', 'DELETE']},
-    ], //除了这些地址，其他的URL都需要验证
-  })
-)
-
 // 引入总路由
 import router from './router.js'
 app.use('/api', router)
-// app.use('/user', require('./router/login'))
 app.use('/', express.static('dist'))
-
-// 当token失效返回提示信息
-app.use(function (err, req, res, next) {
-  if (err['status'] === 401) {
-    if (err['message'] === 'invalid signature') {
-      console.log('客户端token失效')
-      return res.status(401).send('token无效')
-    } else if (err['message'] === 'jwt expired') {
-      console.log('客户端登录已过期')
-      return res.status(401).send('登录已过期，请重新登录')
-    }
-  }
-})
 
 // 导出app模块
 export default app
