@@ -2,8 +2,8 @@ import express from 'express'
 const app = express()
 
 // 解决跨域
-// import cors from 'cors'
-// app.use(cors())
+import cors from 'cors'
+app.use(cors())
 
 // 控制台输出请求信息
 app.all(/\/api.*/, function (req, res, next) {
