@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import request from "@/api/request.js"
 export default {
   name: 'Blog',
   data() {
@@ -58,10 +59,9 @@ export default {
   },
   methods: {
     getBlogData(page) {
-      const _this = this
-      _this.$axios.get(`/blog?page=${page}`).then(({ data }) => {
-        _this.pagination.pageTotal = data.pageTotal
-        _this.blogs = data.blogs
+      request('get', `/blog?page=${page}`).then(data => {
+        this.pagination.pageTotal = data.pageTotal
+        this.blogs = data.blogs
       })
     },
     // 分页导航-处理页码变更
