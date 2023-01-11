@@ -9,7 +9,11 @@ const router = createRouter({
       component: Home,
     },
     {
-      path: '/blog/:path*',
+      path: '/categories/:path*',
+      component: () => import('../pages/Categories.vue'),
+    },
+    {
+      path: '/blog/:filepath*',
       component: () => import('../pages/Blog.vue'),
     },
     {

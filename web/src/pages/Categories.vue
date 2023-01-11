@@ -3,25 +3,36 @@
   <Banner />
   <section class="blog-list-container">
     <div class="blog-list-board">
-      <div>详情</div>
-      <div>{{ blogContent }}</div>
+      <div class="blog-list">
+        <div class="blog-item" v-for="item in blogs">
+          <div v-if="item.isDirectory" class="directory">
+            <span>></span>
+            <RouterLink :to="`/categories${item.path}`">{{ item.title }}</RouterLink>
+            <span>{{ item.amount }}</span>
+          </div>
+          <div v-else class="file">
+            <RouterLink :to="`/blog${item.path}`">{{ item.title }}</RouterLink>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
 import Header from '../components/Header.vue'
 import Banner from '../components/PageBanner.vue'
 import take from '../api/request.js'
 import { ref, watchEffect } from 'vue'
 
 const route = useRoute() 
-const blogContent = ref("")
+const blogs = ref([])
 
 watchEffect(async () => {
   try {
-    blogContent.value = await take.get(`${route.fullPath}.md`)
+    const path = route.params.path && `/${route.params.path.join('/')}`
+    blogs.value = await take.get(`/blog${path}`)
   } catch (err) {}
 })
 </script>
