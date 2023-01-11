@@ -41,3 +41,24 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* 整个项目的滚动条样式 from ElementUI plus */
+/* ::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar:horizontal {
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  display: none;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #0003;
+  border-radius: 10px;
+  transition: all .2s ease-in-out;
+}
+::-webkit-scrollbar-thumb:hover {
+  cursor: pointer;
+  background-color: #0000004d;
+} */
