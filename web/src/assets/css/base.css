@@ -43,7 +43,7 @@ body {
 
 @font-face {
   font-family: Oswald;
-  src: url(../Oswald-VariableFont_wght.ttf);
+  src: url(../Oswald-Medium.ttf);
 }
 
 /* 整个项目的滚动条样式 from ElementUI plus */
