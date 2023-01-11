@@ -8,4 +8,4 @@ db:
   port: 3306                  # 数据库服务器端口
   database: database_name     # 数据库名
   user: user_name             # 数据库用户名
-  password: 123456            # 数据库密码
+  password: '123456'          # 数据库密码(需带上引号)

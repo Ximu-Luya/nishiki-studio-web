@@ -1,15 +1,12 @@
 // 引入mysql
 import { createConnection } from 'mysql'
 
+const dbOption = global.config.db
+
 // 创建mysql数据库连接
-let connection = createConnection({
-  host: 'localhost',
-  port: '3306',
-  user: 'root',
-  password: '123456',
-  database: 'ximu_cms',
-  timezone: '08:00',
-})
+let connection = createConnection(
+  Object.assign({}, dbOption, {timezone: '08:00'})
+)
 
 // 连接数据库
 connection.connect()
