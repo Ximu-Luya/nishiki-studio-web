@@ -45,7 +45,7 @@ router.get('/blog*', function (req, res) {
             if(fileName.includes('.md')) {
               const articleName = fileName.replace('.md', '')
               blogTreeData.push({
-                path: `${requestPath}/${fileName}`,
+                path: `${requestPath}/${articleName}`,
                 utime,
                 title: articleName,
                 isDirectory: false
