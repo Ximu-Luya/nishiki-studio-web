@@ -1,4 +1,4 @@
-import './server/untils/config.js'
+import './server/config-load.js'
 import app from './server/app.js'
 
 const { port, host } = global.config.server

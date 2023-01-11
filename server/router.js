@@ -1,29 +1,34 @@
 import Router from 'express'
 const router = Router()
+import fs from 'fs'
 import dayjs from 'dayjs'
 
 // 获取文章目录树
 router.get('/blogTree', function (req, res) {
   const { folder } = req.query
-  fs.readdir(`./upload${folder ? `/${folder}` : ''}`, (err, files) => {
+  const folderPath = folder ? `/${folder}` : ''
+
+  fs.readdir(`${global.config.mdPath}${folderPath}`, (err, dirs) => {
     if (err) {
-      console.log('文件读取失败')
-      return response.error5(res)
+      console.log('目录读取失败')
+      return res.json({code: 99, message: '目录树获取失败'})
     } else {
-      const filesInfo = files.map(filename => {
-        let file = fs.statSync(`./upload${folder ? `/${folder}` : ''}/${filename}`)
-        let url = `http://${req.headers.host}/upload${folder ? `/${folder}` : ''}/${filename}`
-        if (file.isFile()) {
-          let datetime = dayjs(file.ctime).format('YYYY-MM-DD HH:mm:ss')
-          return { url, datetime, name: filename, isDirectory: false }
-        } else if (file.isDirectory()) {
-          return { url, name: filename, isDirectory: true }
+      const blogTreeData = dirs.map(dirName => {
+        // 根据目录下的名字，获取目标
+        const path = `${global.config.mdPath}${folderPath}/${dirName}`
+        let target = fs.statSync(path)
+        // 判断文件类型
+        if (target.isFile()) {
+          const utime = dayjs(target.ctime).format('YYYY-MM-DD HH:mm:ss')
+          return { path, utime, name: dirName, isDirectory: false }
+        } else if (target.isDirectory()) {
+          return { path, name: dirName, isDirectory: true }
         }
       })
-      
+
       return res.json({
         code: 0,
-        data: filesInfo,
+        data: blogTreeData,
         message: '文章目录树获取成功'
       })
     }
