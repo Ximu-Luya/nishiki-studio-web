@@ -7,7 +7,8 @@ const app = express()
 
 // 控制台输出请求信息
 app.all(/\/api.*/, function (req, res, next) {
-  console.info(req.headers.referer + ' 正在请求', req.method, req.url)
+  const { headers, method, url } = req
+  console.log(`From ${headers.referer || '未知'} ${method} ${decodeURIComponent(url)}`)
   next()
 })
 

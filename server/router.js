@@ -2,46 +2,85 @@ import Router from 'express'
 const router = Router()
 import fs from 'fs'
 import dayjs from 'dayjs'
+import path from 'path'
 
-// 获取文章目录树
-router.get('/blogTree', function (req, res) {
-  const { folder } = req.query
-  const folderPath = folder ? `/${folder}` : ''
+/**
+ * 获取文章
+ * 1.路径为目录则返回目录树
+ * 2.路径为文章文件则返回内容
+ */
+router.get('/blog*', function (req, res) {
+  try {
+    // 处理文件路径
+    // 剔除掉url中的/blog与将url中的编码转回中文
+    const requestPath = decodeURI(req.url.replace('/blog', ''))
+    const systemPath = path.resolve(`${global.config.mdPath}${requestPath}`)
 
-  fs.readdir(`${global.config.mdPath}${folderPath}`, (err, dirs) => {
-    if (err) {
-      console.log('目录读取失败')
-      return res.json({code: 99, message: '目录树获取失败'})
-    } else {
-      const blogTreeData = dirs.map(dirName => {
-        // 根据目录下的名字，获取目标
-        const path = `${global.config.mdPath}${folderPath}/${dirName}`
-        let target = fs.statSync(path)
-        // 判断文件类型
-        if (target.isFile()) {
-          const utime = dayjs(target.ctime).format('YYYY-MM-DD HH:mm:ss')
-          return { path, utime, name: dirName, isDirectory: false }
-        } else if (target.isDirectory()) {
-          return { path, name: dirName, isDirectory: true }
-        }
-      })
-
+    // 路径为文件返回文件内容
+    if(fs.statSync(systemPath).isFile()){
+      console.log(`└ 找到文章 ${requestPath}`)
       return res.json({
         code: 0,
-        data: blogTreeData,
-        message: '文章目录树获取成功'
+        data: fs.readFileSync(systemPath, 'utf8'),
+        message: '文章查询成功'
+      })
+    } 
+    // 路径为目录则读取目录，且返回目录树
+    else {
+      fs.readdir(systemPath, (err, files) => {
+        if (err) {
+          console.log('└ 目录读取失败')
+          return res.json({ code: 99, message: '目录树获取失败' })
+        }
+
+        // 读取目录树
+        let blogTreeData = []
+        files.forEach(fileName => {
+          // 根据目录下的名字，获取目标
+          const filePath = `${systemPath}/${fileName}`
+          let target = fs.statSync(filePath)
+          // 判断文件类型
+          if (target.isFile()) {
+            const utime = dayjs(target.ctime).format('YYYY-MM-DD HH:mm:ss')
+            if(fileName.includes('.md')) {
+              const articleName = fileName.replace('.md', '')
+              blogTreeData.push({
+                path: `${requestPath}/${fileName}`,
+                utime,
+                title: articleName,
+                isDirectory: false
+              }) 
+            }
+          } else if (target.isDirectory()) {
+            blogTreeData.push({ 
+              path: `${requestPath}/${fileName}`,
+              title: fileName,
+              isDirectory: true
+            }) 
+          }
+          })
+        console.log(`└ 找到目录 ${requestPath || '/'}`)
+  
+        return res.json({
+          code: 0,
+          data: blogTreeData,
+          message: '文章目录树获取成功'
+        })
       })
     }
-  })
-})
-// 获取文章详情
-router.get('/blog/*', function (req, res) {
-  res.sendFile(path.resolve('./' + req.url))
-  console.log('请求图片 ' + req.url + ' 已被接受')
+  } catch (err) {
+    if(err.errno === -2) {
+      console.log('└ 路径查找文件失败')
+      return res.json({ code: 99, message: '找不到该文章' })
+    } else{
+      console.log('└ 其他位未知错误')
+      return res.json({ code: 99, message: '其他未知错误' })
+    }
+  }
 })
 // 其他请求路径兜底
 router.all('/*', ({ res }) => {
-  console.log('请求路径有误')
+  console.log('└ 请求路径有误')
   res.status(404).send('请求路径有误')
 })
 
