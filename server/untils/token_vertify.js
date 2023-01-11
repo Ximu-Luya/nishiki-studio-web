@@ -1,7 +1,7 @@
-let jwt = require('jsonwebtoken');
-let signkey = 'this_is_for_ximuCMS_API';
+import jwt from 'jsonwebtoken'
+let signkey = 'this_is_for_ximuCMS_API'
 
-exports = module.exports.setToken = function ({ name, uid, role, team_id }) {
+function setToken({ name, uid, role, team_id }) {
   return new Promise((resolve) => {
     const token = jwt.sign({
       _uid: uid,
@@ -9,8 +9,8 @@ exports = module.exports.setToken = function ({ name, uid, role, team_id }) {
       role: role,
       team_id: team_id
     }, signkey, { expiresIn: '24h' });
-    resolve(token);
+    resolve(token)
   })
 }
 
-exports = module.exports.signkey = signkey
+export { signkey, setToken }

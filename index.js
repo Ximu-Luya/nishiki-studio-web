@@ -1,7 +1,14 @@
-let app = require('./server/app')
+import yaml from 'js-yaml'
+import fs from 'fs'
+try {
+  const config = yaml.load(fs.readFileSync('config/config.yml', 'utf8'))
+  console.log(config)
+} catch (e) {
+  throw new Error('配置读取失败\n'+e)
+}
+import app from './server/app.js'
 
-let server = app.listen(8067, 'localhost', function () {
-  let host = server.address().address
-  let port = server.address().port
-  console.log('后端服务器已部署，请求baseURL为 http://%s:%s', host, port)
+const server = app.listen(8067, 'localhost', function () {
+  const { host, port } = server.address()
+  console.log('服务器部署部署成功，服务器地址： http://%s:%s', host, port)
 })

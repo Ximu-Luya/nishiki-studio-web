@@ -1,0 +1,11 @@
+# 服务器配置
+server: 
+  host: localhost             # 服务器地址
+  port: 8087                  # 服务器端口
+# 数据库配置
+db:
+  host: localhost             # 数据库服务器地址
+  port: 3306                  # 数据库服务器端口
+  database: database_name     # 数据库名
+  user: user_name             # 数据库用户名
+  password: 123456            # 数据库密码

@@ -1,13 +1,13 @@
-const { query } = require('../untils/db')
+import query from '../untils/db.js'
 
 // 查询总数
-exports = module.exports.selectTotal = function () {
+function selectTotal() {
   const sql = 'select count(*) as pageTotal from blog'
   return query(sql)
 }
 
 // 按页查询
-exports = module.exports.selectByPage = function (page) {
+function selectByPage(page) {
   const sql = `select blog.id, title, tag_list, section,
     (
       case when length(content)>200 
@@ -21,7 +21,7 @@ exports = module.exports.selectByPage = function (page) {
 }
 
 // 按ID查询
-exports = module.exports.selectById = function (id) {
+function selectById(id) {
   const sql = `select blog.id, title, tag_list, section, 
         user.name as author_name, author as author_id, content, release_time, update_time
         from blog
@@ -31,7 +31,7 @@ exports = module.exports.selectById = function (id) {
 }
 
 // 新增数据
-exports = module.exports.insert = function (blogItem) {
+function insert(blogItem) {
   const sql =
     'insert into blog(title, tag_list, section, author, content, release_time, update_time) ' +
     'value(?, ?, ?, ?, ?, ?, ?)'
@@ -39,7 +39,7 @@ exports = module.exports.insert = function (blogItem) {
 }
 
 // 更新数据
-exports = module.exports.update = function (blogItem) {
+function update(blogItem) {
   const sql = `
     update blog set 
     title=?, tag_list=?, section=?, content=?, update_time=? 
@@ -48,7 +48,16 @@ exports = module.exports.update = function (blogItem) {
 }
 
 // 删除数据
-exports = module.exports.delete = function (ids, author) {
+function remove(ids, author) {
   const sql = 'delete from blog where id in (?)' + (author ? 'and author =?' : '')
   return query(sql, [ids, author])
+}
+
+export {
+  selectTotal,
+  selectById,
+  selectByPage,
+  insert,
+  update,
+  remove
 }

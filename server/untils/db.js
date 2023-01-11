@@ -1,8 +1,8 @@
 // 引入mysql
-let mysql = require('mysql')
+import { createConnection } from 'mysql'
 
 // 创建mysql数据库连接
-let connection = mysql.createConnection({
+let connection = createConnection({
   host: 'localhost',
   port: '3306',
   user: 'root',
@@ -20,7 +20,7 @@ connection.connect()
  * @param {any} [data] 数据
  * @returns {Promise}
  */
-exports = module.exports.query = function (sql, data) {
+export default function (sql, data) {
   return new Promise((resolve, reject) => {
     connection.query(sql, data, (err, result) => {
       if (err) reject(err)
@@ -36,6 +36,3 @@ exports = module.exports.query = function (sql, data) {
     })
   })
 }
-
-// 导出模块
-// exports = module.exports.connection = connection
