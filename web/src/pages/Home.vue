@@ -1,8 +1,8 @@
 <template>
   <div class="home-page">
     <section class="banner">
-      <img src="@/assets/banner.png" class="banner-img" />
-      <img src="@/assets/banner-overlay.png" class="banner-overlay" />
+      <img src="@/assets/img/banner.png" class="banner-img" />
+      <img src="@/assets/img/banner-overlay.png" class="banner-overlay" />
       <div class="intro"></div>
     </section>
   </div>
