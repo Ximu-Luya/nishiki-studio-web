@@ -23,7 +23,7 @@
 import { RouterLink, useRoute } from 'vue-router'
 import Header from '../components/Header.vue'
 import Banner from '../components/PageBanner.vue'
-import take from '../api/request.js'
+import take from '../utils/request.js'
 import { ref, watchEffect } from 'vue'
 
 const route = useRoute() 

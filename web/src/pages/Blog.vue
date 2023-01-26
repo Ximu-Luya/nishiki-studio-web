@@ -4,7 +4,7 @@
   <section class="blog-list-container">
     <div class="blog-list-board">
       <div>详情</div>
-      <div>{{ blogContent }}</div>
+      <div v-html="blogContent"></div>
     </div>
   </section>
 </template>
@@ -13,7 +13,8 @@
 import { useRoute } from 'vue-router'
 import Header from '../components/Header.vue'
 import Banner from '../components/PageBanner.vue'
-import take from '../api/request.js'
+import take from '../utils/request.js'
+import markdownParse from '../utils/marked'
 import { ref, watchEffect } from 'vue'
 
 const route = useRoute() 
@@ -21,7 +22,8 @@ const blogContent = ref("")
 
 watchEffect(async () => {
   try {
-    blogContent.value = await take.get(`${route.fullPath}.md`)
+    const rawContent = await take.get(`${route.fullPath}.md`)
+    blogContent.value = markdownParse(rawContent)
   } catch (err) {}
 })
 </script>
