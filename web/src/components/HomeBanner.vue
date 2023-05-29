@@ -17,17 +17,23 @@
         <div class="brief white-text">
           <span class="brief-item">人不为别人而活</span>
           <span class="brief-item">工作是为了更好地生活</span>
-          <span class="brief-item">每一个奇思妙想，我都想记录下来</span>
+          <span class="brief-item">每一个奇思妙想，我都想记录下来并把它实现</span>
         </div>
         <!-- 结语 -->
         <div class="end white-text">OPTIMIZE THE WORLD</div>
+
+        <div class="beian">
+          <a href="https://beian.miit.gov.cn/">京ICP备2022028203号-2</a>
+        </div>
       </div>
 
       <!-- 右侧封面内容 -->
       <div class="content-layer">
         <div class="info-item white-text" v-for="item in infoData">
-          <div class="info-title">{{ item.title }}</div>
-          <div class="info-value">{{ item.value }}</div>
+          <a class="info-title" :href="item.herf" target="_blank">
+            {{ item.title }}
+          </a>
+          <div class="info-value">{{ item.discription }}</div>
         </div>
       </div>
     </div>
@@ -37,9 +43,21 @@
 <script setup>
 import { reactive } from 'vue'
 const infoData = reactive([
-  { title: '作品', value: 2 },
-  { title: '博客', value: 10 },
-  { title: '访问量', value: 1000 }
+  {
+    title: '码了个码',
+    discription: '仿照羊了个羊实现的小游戏（不简单）',
+    herf: 'http://game1.ximustudio.top'
+  },
+  {
+    title: 'AI散兵GPT实时语音',
+    discription: '拥有散兵的记忆，模仿散兵的口吻，使用散兵的声音，现在与散宝开始对话吧！',
+    herf: 'http://sanbing.ximustudio.top'
+  },
+  {
+    title: '忆灵',
+    discription: '记忆是情感的基石，通过忆灵用记忆创造独属于你的“灵魂”吧！',
+    herf: 'http://yiling.ximustudio.top'
+  }
 ])
 </script>
 
@@ -80,7 +98,7 @@ const infoData = reactive([
     // 封面内容容器
     .content-layer {
       width: 50%;
-      padding-top: 24vh;
+      padding-top: 30vh;
     }
 
     // 大标题
@@ -109,6 +127,16 @@ const infoData = reactive([
       font-weight: bold;
       letter-spacing: 1px;
     }
+
+    // 备案
+    .beian {
+      width: 100%;
+      padding: 20px 0;
+
+      a {
+        color: white;
+      }
+    }
     
     .info-item {
       padding-left: 10px;
@@ -117,11 +145,14 @@ const infoData = reactive([
       }
 
       .info-title {
-        letter-spacing: 1px;
-        font-size: 16px;
+        letter-spacing: 2px;
+        font-size: 26px;
+        font-weight: 600;
+        color: white;
+        font-family: 'pingfang SC,helvetica neue,arial,hiragino sans gb,microsoft yahei ui,microsoft yahei,simsun,sans-serif';
       }
       .info-value {
-        font-size: 26px;
+        font-size: 16px;
         font-family: Oswald;
       }
     }
