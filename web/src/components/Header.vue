@@ -2,6 +2,7 @@
   <header class="top-header" :class="{'fixed-header': showFixedHeader}">
     <div class="logo-bar">
       <img src="@/assets/img/logo-bar.png" />
+      <div class="sub-title">西木是西木野的西木</div>
     </div>
     <nav class="nav-bar">
       <RouterLink to="/" class="nav-item white-text">首页</RouterLink>
@@ -71,7 +72,14 @@ header {
   z-index: 11;
   padding: 10px 0;
   img {
-    height: 100%;
+    display: block;
+    height: 80%;
+  }
+  .sub-title {
+    color: white;
+    font-size: 14px;
+    margin-top: -5px;
+    letter-spacing: 2px;
   }
 }
 
