@@ -5,8 +5,10 @@
     </div>
     <nav class="nav-bar">
       <RouterLink to="/" class="nav-item white-text">首页</RouterLink>
-      <RouterLink to="/categories" class="nav-item white-text">文章</RouterLink>
-      <RouterLink to="/about" class="nav-item white-text">关于我</RouterLink>
+      <a href="https://blog.csdn.net/qq_33866817" target="_blank" class="nav-item white-text">文章</a>
+      <!-- <RouterLink to="/categories" class="nav-item white-text">文章</RouterLink>
+      <RouterLink to="/about" class="nav-item white-text">关于我</RouterLink> -->
+      <a href="https://github.com/Ximu-Luya" target="_blank" class="nav-item white-text">关于我</a>
     </nav>
   </header>
 </template>
