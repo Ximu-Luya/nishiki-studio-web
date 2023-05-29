@@ -5,7 +5,7 @@
     </div>
     <div class="banner-content">
       <!-- 左侧封面内容 -->
-      <div class="content-layer">
+      <div class="content-layer slogon">
         <!-- 主标题 -->
         <div class="title">
           <span class="title-text white-text">
@@ -28,10 +28,13 @@
       </div>
 
       <!-- 右侧封面内容 -->
-      <div class="content-layer">
+      <div class="content-layer works">
         <div class="info-item white-text" v-for="item in infoData">
           <a class="info-title" :href="item.herf" target="_blank">
             {{ item.title }}
+            <span class="icon">
+              <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M715.648 625.152 670.4 579.904l90.496-90.56c75.008-74.944 85.12-186.368 22.656-248.896-62.528-62.464-173.952-52.352-248.96 22.656L444.16 353.6l-45.248-45.248 90.496-90.496c100.032-99.968 251.968-110.08 339.456-22.656 87.488 87.488 77.312 239.424-22.656 339.456l-90.496 90.496zm-90.496 90.496-90.496 90.496C434.624 906.112 282.688 916.224 195.2 828.8c-87.488-87.488-77.312-239.424 22.656-339.456l90.496-90.496 45.248 45.248-90.496 90.56c-75.008 74.944-85.12 186.368-22.656 248.896 62.528 62.464 173.952 52.352 248.96-22.656l90.496-90.496 45.248 45.248zm0-362.048 45.248 45.248L398.848 670.4 353.6 625.152 625.152 353.6z"></path></svg>
+            </span>
           </a>
           <div class="info-value">{{ item.discription }}</div>
         </div>
@@ -90,15 +93,42 @@ const infoData = reactive([
 
   // 封面内容
   .banner-content {
-    max-width: 1280px;
-    margin: 0 auto;
+    // max-width: 1280px;
+    // margin: 0 ;
     display: flex;
-    padding: 0 40px;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 0 10rem;
 
     // 封面内容容器
     .content-layer {
-      width: 50%;
-      padding-top: 30vh;
+      // width: 50%;
+      width: 400px;
+      position: relative;
+      padding: 20px;
+
+      &.slogon{
+        margin-top: 20vh;
+      }
+
+      &.works {
+        margin-top: 20vh;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0; bottom: 0;
+        left: 0; right: 0;
+        overflow: hidden;
+        border-radius: 15px;
+        filter: blur(10px);
+        -webkit-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        opacity: 0.8;
+        z-index: 0;
+      }
     }
 
     // 大标题
@@ -150,6 +180,12 @@ const infoData = reactive([
         font-weight: 600;
         color: white;
         font-family: 'pingfang SC,helvetica neue,arial,hiragino sans gb,microsoft yahei ui,microsoft yahei,simsun,sans-serif';
+
+        &>.icon{
+          height: 20px;
+          width: 20px;
+          display: inline-block;
+        }
       }
       .info-value {
         font-size: 16px;

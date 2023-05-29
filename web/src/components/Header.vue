@@ -35,6 +35,21 @@ header {
   display: flex;
   justify-content: space-between;
   z-index: 10;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 0; right: 0;
+    overflow: hidden;
+    border-radius: 15px;
+    filter: blur(10px);
+    -webkit-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    opacity: 0.8;
+    z-index: 0;
+  }
 }
 
 .top-header {
